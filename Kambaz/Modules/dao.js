@@ -1,9 +1,19 @@
 import { v4 as uuidv4 } from "uuid";
 import model from "../Courses/model.js";
 
+import mongoose from "mongoose";
+
 export async function findModulesForCourse(courseId) {
-  const course = await model.findById(courseId);
-  return course.modules;
+  const db = mongoose.connection.db;
+  console.log("database name:", db.databaseName);
+  const collections = await db.listCollections().toArray();
+  console.log(
+    "collections:",
+    collections.map((c) => c.name),
+  );
+  const course = await db.collection("courses").findOne({ _id: courseId });
+  console.log("raw course:", JSON.stringify(course));
+  return course?.modules || [];
 }
 
 export async function createModule(courseId, module) {
