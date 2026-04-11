@@ -4,12 +4,12 @@ import cors from "cors";
 import session from "express-session";
 import Hello from "./Hello.js";
 import Lab5 from "./Lab5/index.js";
-import db from "./Kambaz/Database/index.js";
 import UserRoutes from "./Kambaz/Users/routes.js";
 import CourseRoutes from "./Kambaz/Courses/routes.js";
 import ModuleRoutes from "./Kambaz/Modules/routes.js";
 import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
 import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
+import db from "./Kambaz/Database/index.js";
 import QuizRoutes from "./Kambaz/Quizzes/routes.js";
 import mongoose from "mongoose";
 
@@ -22,7 +22,10 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: [
+      process.env.CLIENT_URL || "http://localhost:3000",
+      "http://localhost:3000",
+    ],
   }),
 );
 
@@ -46,10 +49,10 @@ app.use(express.json());
 
 UserRoutes(app);
 CourseRoutes(app, db);
-ModuleRoutes(app, db);
-AssignmentRoutes(app, db);
-EnrollmentRoutes(app, db);
-QuizRoutes(app, db);
+ModuleRoutes(app);
+AssignmentRoutes(app);
+EnrollmentRoutes(app);
+QuizRoutes(app);
 Lab5(app);
 Hello(app);
 

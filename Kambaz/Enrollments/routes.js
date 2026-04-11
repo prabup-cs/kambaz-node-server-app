@@ -1,9 +1,7 @@
-import EnrollmentsDao from "./dao.js";
+import * as dao from "./dao.js";
 
 export default function EnrollmentRoutes(app, db) {
-  const dao = EnrollmentsDao(db);
-
-  const getEnrollmentsForUser = (req, res) => {
+  const getEnrollmentsForUser = async (req, res) => {
     let { userId } = req.params;
     if (userId === "current") {
       const currentUser = req.session["currentUser"];
@@ -13,11 +11,11 @@ export default function EnrollmentRoutes(app, db) {
       }
       userId = currentUser._id;
     }
-    const enrollments = db.enrollments.filter((e) => e.user === userId);
+    const enrollments = await dao.getEnrollmentsForUser(userId);
     res.json(enrollments);
   };
 
-  const enrollUserInCourse = (req, res) => {
+  const enrollUserInCourse = async (req, res) => {
     let { userId, courseId } = req.params;
     if (userId === "current") {
       const currentUser = req.session["currentUser"];
@@ -27,11 +25,11 @@ export default function EnrollmentRoutes(app, db) {
       }
       userId = currentUser._id;
     }
-    dao.enrollUserInCourse(userId, courseId);
+    await dao.enrollUserInCourse(userId, courseId);
     res.sendStatus(200);
   };
 
-  const unenrollUserFromCourse = (req, res) => {
+  const unenrollUserFromCourse = async (req, res) => {
     let { userId, courseId } = req.params;
     if (userId === "current") {
       const currentUser = req.session["currentUser"];
@@ -41,7 +39,7 @@ export default function EnrollmentRoutes(app, db) {
       }
       userId = currentUser._id;
     }
-    dao.unenrollUserFromCourse(userId, courseId);
+    await dao.unenrollUserFromCourse(userId, courseId);
     res.sendStatus(200);
   };
 

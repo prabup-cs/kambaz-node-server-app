@@ -1,16 +1,14 @@
+import model from "./model.js";
 import { v4 as uuidv4 } from "uuid";
 
-export default function EnrollmentsDao(db) {
-  function enrollUserInCourse(userId, courseId) {
-    const { enrollments } = db;
-    enrollments.push({ _id: uuidv4(), user: userId, course: courseId });
-  }
+export function enrollUserInCourse(userId, courseId) {
+  return model.create({ _id: uuidv4(), user: userId, course: courseId });
+}
 
-  function unenrollUserFromCourse(userId, courseId) {
-    db.enrollments = db.enrollments.filter(
-      (e) => !(e.user === userId && e.course === courseId),
-    );
-  }
+export function unenrollUserFromCourse(userId, courseId) {
+  return model.deleteOne({ user: userId, course: courseId });
+}
 
-  return { enrollUserInCourse, unenrollUserFromCourse };
+export function getEnrollmentsForUser(userId) {
+  return model.find({ user: userId });
 }
