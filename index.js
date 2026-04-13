@@ -11,6 +11,7 @@ import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
 import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
 import db from "./Kambaz/Database/index.js";
 import QuizRoutes from "./Kambaz/Quizzes/routes.js";
+import TakenQuizRoutes from "./Kambaz/Courses/TakenQuizzes/routes.js";
 import mongoose from "mongoose";
 
 const CONNECTION_STRING =
@@ -53,6 +54,7 @@ ModuleRoutes(app);
 AssignmentRoutes(app);
 EnrollmentRoutes(app);
 QuizRoutes(app);
+TakenQuizRoutes(app);
 Lab5(app);
 Hello(app);
 
