@@ -13,6 +13,12 @@ const questionSchema = new mongoose.Schema({
   choices: [{ _id: String, text: String, isCorrect: Boolean }],
   correctAnswer: String,
   possibleAnswers: [String],
+  blanks: [
+    {
+      _id: String,
+      correctAnswers: [String],
+    },
+  ],
 });
 
 const quizSchema = new mongoose.Schema(
