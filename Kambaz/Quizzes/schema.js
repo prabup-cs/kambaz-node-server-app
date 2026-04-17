@@ -21,6 +21,14 @@ const questionSchema = new mongoose.Schema({
   ],
 });
 
+const questionGroupSchema = new mongoose.Schema({
+  _id: String,
+  name: String,
+  pickCount: { type: Number, default: 1 },
+  pointsPerQuestion: { type: Number, default: 1 },
+  questionIds: [String],
+});
+
 const quizSchema = new mongoose.Schema(
   {
     _id: String,
@@ -44,6 +52,7 @@ const quizSchema = new mongoose.Schema(
     oneQuestionAtATime: { type: Boolean, default: true },
     webcamRequired: { type: Boolean, default: false },
     lockQuestionsAfterAnswering: { type: Boolean, default: false },
+    groups: [questionGroupSchema],
   },
   { collection: "quizzes" },
 );

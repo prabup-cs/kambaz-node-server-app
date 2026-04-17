@@ -5,6 +5,6 @@ export const findQuizzesForCourse = (courseId) =>
   model.find({ course: courseId });
 export const createQuiz = (quiz) => model.create({ ...quiz, _id: uuidv4() });
 export const updateQuiz = (quizId, quizUpdates) =>
-  model.updateOne({ _id: quizId }, { $set: quizUpdates });
+  model.replaceOne({ _id: quizId }, { ...quizUpdates, _id: quizId });
 export const deleteQuiz = (quizId) => model.deleteOne({ _id: quizId });
 export const findQuizById = (quizId) => model.findById(quizId);
