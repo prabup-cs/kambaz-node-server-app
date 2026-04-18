@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const takenQuizSchema = new mongoose.Schema(
   {
     _id: String,
@@ -7,9 +6,9 @@ const takenQuizSchema = new mongoose.Schema(
     user: { type: String, ref: "UserModel" },
     answers: { type: Object },
     score: Number,
+    attemptCount: { type: Number, default: 1 },
     dateTaken: { type: Date, default: Date.now },
   },
   { collection: "takenQuizzes" },
 );
-
 export default takenQuizSchema;
