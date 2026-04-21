@@ -10,9 +10,12 @@ export const saveAttempt = async (attempt) => {
     return model.findOneAndUpdate(
       { quiz: attempt.quiz, user: attempt.user },
       {
-        ...attempt,
-        attemptCount: (existing.attemptCount ?? 1) + 1,
-        dateTaken: new Date(),
+        $set: {
+          answers: attempt.answers,
+          score: attempt.score,
+          attemptCount: (existing.attemptCount ?? 1) + 1,
+          dateTaken: new Date(),
+        },
       },
       { new: true },
     );
