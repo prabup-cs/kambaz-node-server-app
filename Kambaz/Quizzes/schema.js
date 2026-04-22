@@ -25,7 +25,6 @@ const questionGroupSchema = new mongoose.Schema({
   _id: String,
   name: String,
   pickCount: { type: Number, default: 1 },
-  pointsPerQuestion: { type: Number, default: 1 },
   questionIds: [String],
 });
 

@@ -5,14 +5,8 @@ import mongoose from "mongoose";
 
 export async function findModulesForCourse(courseId) {
   const db = mongoose.connection.db;
-  console.log("database name:", db.databaseName);
   const collections = await db.listCollections().toArray();
-  console.log(
-    "collections:",
-    collections.map((c) => c.name),
-  );
   const course = await db.collection("courses").findOne({ _id: courseId });
-  console.log("raw course:", JSON.stringify(course));
   return course?.modules || [];
 }
 
